@@ -60,58 +60,77 @@ with st.sidebar:
 
 st.markdown(
     """
-    <style>
-
-    .main {
-        background: linear-gradient(
-            135deg,
-            #0f172a,
-            #111827,
-            #1e293b
-        );
-    }
-
-    .title {
-        font-size: 50px;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .subtitle {
-        font-size: 20px;
-        color: #cbd5e1;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .card {
-        background-color: #1e293b;
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
-        margin-bottom: 20px;
-    }
-
-    .risk-high {
-        background-color: #7f1d1d;
-        color: white;
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
+  st.markdown(
+        font-size: 32px;
+        font-weight: 700;
+        border: 1px solid rgba(255,255,255,0.08);
     }
 
     .risk-low {
-        background-color: #14532d;
-        color: white;
-        padding: 20px;
-        border-radius: 15px;
+        background: linear-gradient(
+            135deg,
+            #14532d,
+            #166534
+        );
+        padding: 30px;
+        border-radius: 20px;
         text-align: center;
-        font-size: 30px;
-        font-weight: bold;
+        color: white;
+        font-size: 32px;
+        font-weight: 700;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    div[data-testid="metric-container"] {
+        background-color: #111827;
+        border: 1px solid #1f2937;
+        padding: 18px;
+        border-radius: 18px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    div[data-testid="metric-container"] label {
+        color: #94a3b8 !important;
+    }
+
+    div[data-testid="metric-container"] div {
+        color: #f8fafc !important;
+    }
+
+    .stButton > button {
+        width: 100%;
+        height: 52px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37,99,235,0.35);
+    }
+
+    .stSelectbox label,
+    .stSlider label,
+    .stNumberInput label {
+        color: #e2e8f0 !important;
+        font-weight: 500;
+    }
+
+    hr {
+        border-color: #1f2937;
+    }
+
+    footer {
+        visibility: hidden;
     }
 
     </style>
@@ -121,12 +140,12 @@ st.markdown(
 
 
 st.markdown(
-    '<div class="title">❤️ VitalGuard AI</div>',
+    '<div class="main-title">VitalGuard AI</div>',
     unsafe_allow_html=True
 )
 
 st.markdown(
-    '<div class="subtitle">Sistema Inteligente de Clasificación Cardiometabólica</div>',
+    '<div class="subtitle">Sistema Inteligente para Evaluación de Riesgo Cardiovascular</div>',
     unsafe_allow_html=True
 )
 
@@ -454,7 +473,7 @@ with col2:
 
             
             # GAUGE CHART
-            
+
             fig = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=high_risk,
