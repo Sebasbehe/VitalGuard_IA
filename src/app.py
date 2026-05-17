@@ -1,6 +1,3 @@
-
-# app.py — VitalGuard AI 
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -10,57 +7,62 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# CONFIGURACIÓN DE PÁGINA
-
 st.set_page_config(
     page_title="VitalGuard AI",
     page_icon="❤️",
     layout="wide"
 )
 
-# SIDEBAR
-
-with st.sidebar:
-
-    st.image(
-        "https://cdn-icons-png.flaticon.com/512/2966/2966486.png",
-        width=120
-    )
-
-    st.title("VitalGuard AI")
-
-    st.markdown("---")
-
-    st.subheader("Información IA")
-
-    st.write("Modelo: Random Forest")
-    st.write("Tipo: Aprendizaje Supervisado")
-    st.write("Clasificación Binaria")
-
-    st.markdown("---")
-
-    st.subheader("Dataset")
-
-    st.write("Heart Failure Clinical Records")
-    st.write("299 registros clínicos")
-
-    st.markdown("---")
-
-    st.subheader("Equipo")
-
-    st.write("• Sebastián")
-    st.write("• Integrante 2")
-    st.write("• Integrante 3")
-
-    st.markdown("---")
-
-    st.success("ODS 3 — Salud y Bienestar")
-
-# ESTILOS PERSONALIZADOS
-
 st.markdown(
     """
-  st.markdown(
+    <style>
+
+    .stApp {
+        background: linear-gradient(
+            135deg,
+            #0f172a,
+            #111827,
+            #1e293b
+        );
+        color: white;
+    }
+
+    section[data-testid="stSidebar"] {
+        background-color: #0b1220;
+        border-right: 1px solid #1f2937;
+    }
+
+    .main-title {
+        font-size: 48px;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 5px;
+    }
+
+    .subtitle {
+        color: #94a3b8;
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        background-color: rgba(17,24,39,0.95);
+        border: 1px solid #1f2937;
+        border-radius: 22px;
+        padding: 28px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+
+    .risk-high {
+        background: linear-gradient(
+            135deg,
+            #7f1d1d,
+            #991b1b
+        );
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
         font-size: 32px;
         font-weight: 700;
         border: 1px solid rgba(255,255,255,0.08);
@@ -138,6 +140,41 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+with st.sidebar:
+
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/2966/2966486.png",
+        width=120
+    )
+
+    st.title("VitalGuard AI")
+
+    st.markdown("---")
+
+    st.subheader("Información IA")
+
+    st.write("Modelo: Random Forest")
+    st.write("Tipo: Aprendizaje Supervisado")
+    st.write("Clasificación Binaria")
+
+    st.markdown("---")
+
+    st.subheader("Dataset")
+
+    st.write("Heart Failure Clinical Records")
+    st.write("299 registros clínicos")
+
+    st.markdown("---")
+
+    st.subheader("Equipo")
+
+    st.write("Sebastián")
+    st.write("Integrante 2")
+    st.write("Integrante 3")
+
+    st.markdown("---")
+
+    st.success("ODS 3 — Salud y Bienestar")
 
 st.markdown(
     '<div class="main-title">VitalGuard AI</div>',
@@ -149,27 +186,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# INFORMACIÓN IA
-
 st.info(
     "Modelo IA: Random Forest Classifier | "
     "Tipo: Aprendizaje Supervisado | "
     "Problema: Clasificación Binaria"
 )
 
-# ENTRENAMIENTO DEL MODELO
-
 @st.cache_resource
 def train_model():
 
-    # CARGAR DATASET
     df = pd.read_csv("data/heart.csv")
 
-    # VARIABLES
     X = df.drop("DEATH_EVENT", axis=1)
     y = df["DEATH_EVENT"]
 
-    # DIVISIÓN
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
@@ -177,22 +207,18 @@ def train_model():
         random_state=42
     )
 
-    # MODELO IA
     model = RandomForestClassifier(
         n_estimators=200,
         max_depth=10,
         random_state=42
     )
 
-    # ENTRENAMIENTO
     model.fit(X_train, y_train)
 
-    # EVALUACIÓN
     y_pred = model.predict(X_test)
 
     accuracy = accuracy_score(y_test, y_pred)
 
-    # IMPORTANCIA VARIABLES
     importance = model.feature_importances_
 
     importance_df = pd.DataFrame({
@@ -202,10 +228,7 @@ def train_model():
 
     return model, accuracy, importance_df
 
-
 model, accuracy, importance_df = train_model()
-
-# MÉTRICAS SUPERIORES
 
 m1, m2, m3 = st.columns(3)
 
@@ -217,7 +240,6 @@ with m2:
 
 with m3:
     st.metric("Tipo IA", "Supervisado")
-
 
 st.markdown("### Casos de Prueba")
 
@@ -231,8 +253,6 @@ with demo1:
 
 with demo2:
     critical_demo = st.button("Paciente Crítico")
-
-# DATOS AUTOMÁTICOS
 
 if healthy_demo:
 
@@ -279,11 +299,7 @@ else:
     default_sodium = 137
     default_time = 120
 
-
-
 col1, col2 = st.columns([1,1])
-
-# FORMULARIO
 
 with col1:
 
@@ -295,8 +311,7 @@ with col1:
         "Edad",
         20,
         100,
-        default_age,
-        help="Edad del paciente."
+        default_age
     )
 
     anaemia = st.selectbox(
@@ -374,7 +389,6 @@ with col1:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-
 with col2:
 
     st.markdown('<div class="card">', unsafe_allow_html=True)
@@ -391,6 +405,7 @@ with col2:
         with st.spinner("Analizando paciente..."):
 
             patient_data = np.array([[
+
                 age,
                 anaemia,
                 creatinine_phosphokinase,
@@ -403,18 +418,16 @@ with col2:
                 sex,
                 smoking,
                 time
+
             ]])
 
-            # PREDICCIÓN
             prediction = model.predict(patient_data)
 
-            # PROBABILIDAD
             probability = model.predict_proba(patient_data)
 
             low_risk = probability[0][0] * 100
             high_risk = probability[0][1] * 100
 
-            # RESULTADO
             if prediction[0] == 1:
 
                 st.markdown(
@@ -437,7 +450,7 @@ with col2:
                 st.markdown(
                     f'''
                     <div class="risk-low">
-                         BAJO RIESGO
+                        BAJO RIESGO
                         <br>
                         {low_risk:.2f}%
                     </div>
@@ -448,10 +461,6 @@ with col2:
                 st.success(
                     "El paciente presenta bajo riesgo cardiometabólico."
                 )
-
-           
-            # PROBABILIDADES
-          
 
             st.markdown("---")
 
@@ -471,9 +480,6 @@ with col2:
                     f"{high_risk:.2f}%"
                 )
 
-            
-            # GAUGE CHART
-
             fig = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=high_risk,
@@ -489,18 +495,20 @@ with col2:
                 }
             ))
 
-            fig.update_layout(height=300)
+            fig.update_layout(
+                height=300,
+                paper_bgcolor="#111827",
+                font={'color': "white"}
+            )
 
             st.plotly_chart(
                 fig,
                 use_container_width=True
             )
 
-
-
             st.markdown("---")
 
-            st.subheader("🧠 Variables Analizadas")
+            st.subheader("Variables Analizadas")
 
             st.write([
                 "Edad",
@@ -513,7 +521,6 @@ with col2:
                 "Tabaquismo"
             ])
 
-
             st.markdown("---")
 
             st.subheader("Variables Más Importantes")
@@ -522,23 +529,22 @@ with col2:
                 importance_df.set_index("Variable")
             )
 
-
             st.markdown("---")
 
-            st.subheader("🩺 Recomendaciones Inteligentes")
+            st.subheader("Recomendaciones Inteligentes")
 
             if prediction[0] == 1:
 
-                st.warning("✔ Realizar chequeo médico prioritario")
-                st.warning("✔ Monitorear presión arterial")
-                st.warning("✔ Reducir consumo de sodio")
-                st.warning("✔ Mantener seguimiento cardiológico")
+                st.warning("Realizar chequeo médico prioritario")
+                st.warning("Monitorear presión arterial")
+                st.warning("Reducir consumo de sodio")
+                st.warning("Mantener seguimiento cardiológico")
 
             else:
 
-                st.info("✔ Mantener hábitos saludables")
-                st.info("✔ Continuar actividad física")
-                st.info("✔ Realizar controles periódicos")
+                st.info("Mantener hábitos saludables")
+                st.info("Continuar actividad física")
+                st.info("Realizar controles periódicos")
 
     else:
 
@@ -547,7 +553,6 @@ with col2:
         )
 
     st.markdown('</div>', unsafe_allow_html=True)
-
 
 st.markdown("---")
 
