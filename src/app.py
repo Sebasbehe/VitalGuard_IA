@@ -1,6 +1,5 @@
-# =====================================================
-# app.py — VitalGuard AI (VERSIÓN FINAL PROFESIONAL)
-# =====================================================
+
+# app.py — VitalGuard AI 
 
 import streamlit as st
 import pandas as pd
@@ -11,9 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# =====================================================
 # CONFIGURACIÓN DE PÁGINA
-# =====================================================
 
 st.set_page_config(
     page_title="VitalGuard AI",
@@ -21,9 +18,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# =====================================================
 # SIDEBAR
-# =====================================================
 
 with st.sidebar:
 
@@ -36,7 +31,7 @@ with st.sidebar:
 
     st.markdown("---")
 
-    st.subheader("🧠 Información IA")
+    st.subheader("Información IA")
 
     st.write("Modelo: Random Forest")
     st.write("Tipo: Aprendizaje Supervisado")
@@ -44,14 +39,14 @@ with st.sidebar:
 
     st.markdown("---")
 
-    st.subheader("📊 Dataset")
+    st.subheader("Dataset")
 
     st.write("Heart Failure Clinical Records")
     st.write("299 registros clínicos")
 
     st.markdown("---")
 
-    st.subheader("👨‍💻 Equipo")
+    st.subheader("Equipo")
 
     st.write("• Sebastián")
     st.write("• Integrante 2")
@@ -61,9 +56,7 @@ with st.sidebar:
 
     st.success("ODS 3 — Salud y Bienestar")
 
-# =====================================================
 # ESTILOS PERSONALIZADOS
-# =====================================================
 
 st.markdown(
     """
@@ -126,9 +119,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# =====================================================
-# HEADER
-# =====================================================
 
 st.markdown(
     '<div class="title">❤️ VitalGuard AI</div>',
@@ -140,19 +130,15 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# =====================================================
 # INFORMACIÓN IA
-# =====================================================
 
 st.info(
-    "🧠 Modelo IA: Random Forest Classifier | "
+    "Modelo IA: Random Forest Classifier | "
     "Tipo: Aprendizaje Supervisado | "
     "Problema: Clasificación Binaria"
 )
 
-# =====================================================
 # ENTRENAMIENTO DEL MODELO
-# =====================================================
 
 @st.cache_resource
 def train_model():
@@ -197,15 +183,10 @@ def train_model():
 
     return model, accuracy, importance_df
 
-# =====================================================
-# CARGAR MODELO
-# =====================================================
 
 model, accuracy, importance_df = train_model()
 
-# =====================================================
 # MÉTRICAS SUPERIORES
-# =====================================================
 
 m1, m2, m3 = st.columns(3)
 
@@ -218,11 +199,8 @@ with m2:
 with m3:
     st.metric("Tipo IA", "Supervisado")
 
-# =====================================================
-# BOTONES DEMO
-# =====================================================
 
-st.markdown("### 🧪 Casos de Prueba")
+st.markdown("### Casos de Prueba")
 
 demo1, demo2 = st.columns(2)
 
@@ -230,14 +208,12 @@ healthy_demo = False
 critical_demo = False
 
 with demo1:
-    healthy_demo = st.button("✅ Paciente Saludable")
+    healthy_demo = st.button("Paciente Saludable")
 
 with demo2:
-    critical_demo = st.button("⚠️ Paciente Crítico")
+    critical_demo = st.button("Paciente Crítico")
 
-# =====================================================
 # DATOS AUTOMÁTICOS
-# =====================================================
 
 if healthy_demo:
 
@@ -284,21 +260,17 @@ else:
     default_sodium = 137
     default_time = 120
 
-# =====================================================
-# LAYOUT PRINCIPAL
-# =====================================================
+
 
 col1, col2 = st.columns([1,1])
 
-# =====================================================
 # FORMULARIO
-# =====================================================
 
 with col1:
 
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
-    st.subheader("📋 Información del Paciente")
+    st.subheader("Información del Paciente")
 
     age = st.slider(
         "Edad",
@@ -379,19 +351,16 @@ with col1:
         default_time
     )
 
-    analyze = st.button("🔍 Analizar Riesgo")
+    analyze = st.button("Analizar Riesgo")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =====================================================
-# RESULTADOS
-# =====================================================
 
 with col2:
 
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
-    st.subheader("📊 Resultado del Análisis")
+    st.subheader("Resultado del Análisis")
 
     st.metric(
         "Accuracy del Modelo",
@@ -432,7 +401,7 @@ with col2:
                 st.markdown(
                     f'''
                     <div class="risk-high">
-                        ⚠️ ALTO RIESGO
+                        ALTO RIESGO
                         <br>
                         {high_risk:.2f}%
                     </div>
@@ -449,7 +418,7 @@ with col2:
                 st.markdown(
                     f'''
                     <div class="risk-low">
-                        ✅ BAJO RIESGO
+                         BAJO RIESGO
                         <br>
                         {low_risk:.2f}%
                     </div>
@@ -461,13 +430,13 @@ with col2:
                     "El paciente presenta bajo riesgo cardiometabólico."
                 )
 
-            # =====================================================
+           
             # PROBABILIDADES
-            # =====================================================
+          
 
             st.markdown("---")
 
-            st.subheader("📈 Probabilidades")
+            st.subheader("Probabilidades")
 
             metric1, metric2 = st.columns(2)
 
@@ -483,10 +452,9 @@ with col2:
                     f"{high_risk:.2f}%"
                 )
 
-            # =====================================================
+            
             # GAUGE CHART
-            # =====================================================
-
+            
             fig = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=high_risk,
@@ -509,9 +477,7 @@ with col2:
                 use_container_width=True
             )
 
-            # =====================================================
-            # VARIABLES ANALIZADAS
-            # =====================================================
+
 
             st.markdown("---")
 
@@ -528,21 +494,15 @@ with col2:
                 "Tabaquismo"
             ])
 
-            # =====================================================
-            # IMPORTANCIA VARIABLES
-            # =====================================================
 
             st.markdown("---")
 
-            st.subheader("📊 Variables Más Importantes")
+            st.subheader("Variables Más Importantes")
 
             st.bar_chart(
                 importance_df.set_index("Variable")
             )
 
-            # =====================================================
-            # RECOMENDACIONES
-            # =====================================================
 
             st.markdown("---")
 
@@ -569,9 +529,6 @@ with col2:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =====================================================
-# FOOTER
-# =====================================================
 
 st.markdown("---")
 
