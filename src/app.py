@@ -168,10 +168,11 @@ with st.sidebar:
 
     st.subheader("Equipo")
 
-    st.write("Sebastián")
-    st.write("Integrante 2")
-    st.write("Integrante 3")
-
+    st.write("Sebastián Perez")
+    st.write("Jose Larios")
+    st.write("Jorman Acosta")
+    st.write("Andres Yepes")
+    st.write("Esteban Ibañez")
     st.markdown("---")
 
     st.success("ODS 3 — Salud y Bienestar")
